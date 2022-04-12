@@ -9,19 +9,23 @@ class Thermostat {
   _up(degrees) {
     this.currentTemperature += degrees
     if(this.currentTemperature > this.maxTemperature) this.currentTemperature = this.maxTemperature
-    this.powerUsage = this._checkPowerUsage(this.currentTemperature)
+    this._updatePowerUsage()
   }
   
   _down(degrees) {
     this.currentTemperature -= degrees
     if(this.currentTemperature < 10) this.currentTemperature = 10
-    this.powerUsage = this._checkPowerUsage(this.currentTemperature)
+    this._updatePowerUsage()
   }
 
   _checkPowerUsage(temp) {
-    if(temp <= 18) return 'low-usage'
-    if(temp > 18 && temp <= 25) return 'medium-usage'
-    return 'high-usage'
+    if(temp <= 18) return "low-usage"
+    if(temp > 18 && temp <= 25) return "medium-usage"
+    return "high-usage"
+  }
+
+  _updatePowerUsage() {
+    this.powerUsage = this._checkPowerUsage(this.currentTemperature)
   }
 
   switchPowerSaving() {
@@ -36,5 +40,11 @@ class Thermostat {
 
   resetTemperature() {
     this.currentTemperature = 20
+    this._updatePowerUsage()
+  }
+
+  powerSavingText() {
+    if(this.powerSaving) return "on"
+    return "off"
   }
 }

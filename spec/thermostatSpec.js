@@ -77,5 +77,14 @@ describe('thermostat', function() {
       expect(thermostat.currentTemperature).toEqual(26)
       expect(thermostat.powerUsage).toEqual('high-usage')
     })
+
+    it('is medium if the temperature is reset', function () {
+      thermostat = new Thermostat()
+      thermostat._down(4)
+      expect(thermostat.currentTemperature).toEqual(16)
+      expect(thermostat.powerUsage).toEqual('low-usage')
+      thermostat.resetTemperature()
+      expect(thermostat.powerUsage).toEqual('medium-usage')
+    })
   })
 })
