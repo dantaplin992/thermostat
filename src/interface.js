@@ -1,7 +1,17 @@
 const thermostat = new Thermostat();
+let weatherTemp;
+let city;
 
 document.addEventListener('DOMContentLoaded', () => {
   updateTemperature();
+  city = 'London'
+  weatherTemp = fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},uk&appid=0f059f509764959c5fbd965afbf74106&units=metric`)
+  .then((response) => {
+    return response.json()
+  })
+  .then((data) => {
+    document.querySelector('#current-temperature').innerText = data.main.temp
+  });
 });
 
 document.querySelector('#temperature-up').addEventListener('click', () => {
