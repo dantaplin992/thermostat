@@ -1,6 +1,4 @@
 const thermostat = new Thermostat();
-let weatherTemp;
-let city;
 
 document.addEventListener('DOMContentLoaded', () => {
   updateTemperature();
@@ -9,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const selectElement = document.querySelector('#current-city')
 selectElement.addEventListener('change', (event) => {
-  city = event.target.value
+  event.preventDefault()
+  const city = event.target.value
   displayWeather(city)
 })
 
