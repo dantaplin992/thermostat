@@ -4,15 +4,14 @@ let city;
 
 document.addEventListener('DOMContentLoaded', () => {
   updateTemperature();
-  city = 'London'
-  weatherTemp = fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},uk&appid=0f059f509764959c5fbd965afbf74106&units=metric`)
-  .then((response) => {
-    return response.json()
-  })
-  .then((data) => {
-    document.querySelector('#current-temperature').innerText = data.main.temp
-  });
+  displayWeather('London,gb')
 });
+
+const selectElement = document.querySelector('#current-city')
+selectElement.addEventListener('change', (event) => {
+  city = event.target.value
+  displayWeather(city)
+})
 
 document.querySelector('#temperature-up').addEventListener('click', () => {
   thermostat._up(1);
@@ -41,4 +40,15 @@ const updateTemperature = () => {
 
 const updatePowerSavingText = () => {
   document.querySelector('#power-saving-status').innerText = thermostat.powerSavingText();
+}
+
+const displayWeather = (city) => {
+  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0f059f509764959c5fbd965afbf74106&units=metric`
+  fetch(url)
+  .then((response) => {
+    return response.json()
+  })
+  .then((data) => {
+    document.querySelector('#current-temperature').innerText = data.main.temp
+  });
 }
